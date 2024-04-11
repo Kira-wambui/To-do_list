@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from todo_list import TodoList
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Change this to a random secret key
+app.secret_key = '0740880031@Kira'  # Change this to a random secret key
 
 todo_list = TodoList()
 
