@@ -1,26 +1,26 @@
 from flask import Flask, render_template, request, redirect, url_for
-from todo_list import TodoList
+from flask_login import LoginManager, login_user, logout_user, login_required, UserMixin
+from user import User
 
 app = Flask(__name__)
 app.secret_key = '0740880031@Kira'  # Change this to a random secret key
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(username):
+    return User.get(username)
+
 todo_list = TodoList()
 
 @app.route("/")
+@login_required
 def index():
     tasks = todo_list.view_tasks()
     return render_template("index.html", tasks=tasks)
 
-@app.route("/add", methods=["POST"])
-def add_task():
-    task = request.form["task"]
-    todo_list.add_task(task)
-    return redirect(url_for("index"))
-
-@app.route("/complete/<int:task_idx>")
-def complete_task(task_idx):
-    todo_list.mark_completed(task_idx)
-    return redirect(url_for("index"))
+# Other routes and functions...
 
 if __name__ == "__main__":
     app.run(debug=True)
