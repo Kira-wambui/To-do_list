@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo List</title>
+    <title>User Registration and Login</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,18 +19,31 @@
 
         form {
             margin-bottom: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        input[type="text"] {
-            width: 70%;
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
             padding: 10px;
             font-size: 16px;
             border-radius: 5px;
             border: 1px solid #ccc;
+            margin-bottom: 10px;
         }
 
         button[type="submit"] {
-            padding: 10px 20px;
+            width: 100%;
+            padding: 10px;
             font-size: 16px;
             border-radius: 5px;
             background-color: #4CAF50;
@@ -39,67 +52,29 @@
             cursor: pointer;
         }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            background-color: #fff;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        li:last-child {
-            margin-bottom: 0;
-        }
-
-        .task-text {
-            flex: 1;
-        }
-
-        .task-actions {
-            margin-left: 10px;
-        }
-
-        .task-actions a {
+        a {
             text-decoration: none;
-            color: #4CAF50;
-            margin-left: 10px;
-        }
-
-        .task-actions a:hover {
-            text-decoration: underline;
-        }
-
-        .completed {
-            text-decoration: line-through;
-            color: #888;
+            color: blue;
         }
     </style>
 </head>
 <body>
-    <h1>Todo List</h1>
-    <form action="/add" method="POST">
-        <input type="text" name="task" placeholder="Enter new task">
-        <button type="submit">Add Task</button>
+    <h1>User Registration</h1>
+    <form action="/register" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Register</button>
     </form>
-    <ul>
-        {% for task in tasks %}
-        <li>
-            <span class="task-text {% if task.status == 'Done' %}completed{% endif %}">{{ task.task }}</span>
-            <span class="task-actions">
-                {% if task.status == 'Pending' %}
-                <a href="/complete/{{ task.id }}">Mark as Completed</a>
-                {% endif %}
-            </span>
-        </li>
-        {% endfor %}
-    </ul>
+    
+    <h1>User Login</h1>
+    <form action="/login" method="post">
+        <label for="login_username">Username:</label>
+        <input type="text" id="login_username" name="username" required>
+        <label for="login_password">Password:</label>
+        <input type="password" id="login_password" name="password" required>
+        <button type="submit">Login</button>
+    </form>
 </body>
 </html>
